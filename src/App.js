@@ -5,6 +5,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import {useState} from "react";
 import Home from "./pages/Home";
+import AdminHome from "./pages/AdminHome";
+import UserHome from "./pages/UserHome";
 
 export var logout = () => {
 };
@@ -30,6 +32,8 @@ const App = () => {
                 <Sidebar user={longedUser}>
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
+                        <Route path={"/admin/users"} element={<AdminHome/>}/>
+                        <Route path={"/user/home"} element={<UserHome/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>

@@ -11,15 +11,15 @@ const Sidebar = ({children, user}) => {
     const [isOpen, setIsOpen] = useState(true);
     const getMenuIndexByRole = userRole => {
         switch (userRole) {
-            case 'ROLE_ADMIN':
+            case 'admin':
                 return 0;
-            case 'ROLE_USER':
+            case 'user':
                 return 1;
             default:
                 return 2;
         }
     }
-    const menuIndex = getMenuIndexByRole(user?.userRole?.userRole);
+    const menuIndex = getMenuIndexByRole(user?.userRole);
     const menuItem = [
         [
             {

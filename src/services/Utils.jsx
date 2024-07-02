@@ -56,85 +56,21 @@ export const printError = (error) => {
 
 export const callBackRemoveData = () => {
     removeItem('connectedUser');
-    removeItem('jwtToken');
+    removeItem('access_token');
     localStorage.clear();
     logout();
     refreshP();
-}
-
-const countriesAPI = () => {
-    return [
-        {
-            name: 'Russia',
-            code: 'RU',
-            iso: 'RUS',
-            phoneCode: '+7'
-        },
-        {
-            name: 'USA',
-            code: 'US',
-            iso: 'USA',
-            phoneCode: '+1'
-        },
-        {
-            name: 'DR Congo',
-            code: 'CD',
-            iso: 'COD',
-            phoneCode: '+243'
-        },
-        {
-            name: 'Angola',
-            code: 'AO',
-            iso: 'AGO',
-            phoneCode: '+244'
-        },
-        {
-            name: 'Cameroon',
-            code: 'CM',
-            iso: 'CMR',
-            phoneCode: '+237'
-        },
-        {
-            name: 'CONGO',
-            code: 'CG',
-            iso: 'COG',
-            phoneCode: '+242'
-        },
-        {
-            name: 'Ivory Coast',
-            code: 'CI',
-            iso: 'CIV',
-            phoneCode: '+225'
-        },
-        {
-            name: 'Benin',
-            code: 'BJ',
-            iso: 'BEN',
-            phoneCode: '+229'
-        }
-
-    ]
-}
-
-export const getCountryByName = name => {
-    return countriesAPI().filter(country => country.name === name)[0];
 }
 
 export const getToken = () => {
     return {Authorization: getItem('jwtToken')};
 }
 
-export const extractRegisteredUserId = locationArray => {
-    const length = locationArray?.length;
-    return locationArray[length - 1];
-}
-
-
 export const getUserHomePath = userRole => {
     switch (userRole) {
-        case 'ROLE_ADMIN':
+        case 'admin':
             return '/admin/users';
-        case 'ROLE_MODERATOR':
+        case 'user':
             return 'user/home';
     }
 }

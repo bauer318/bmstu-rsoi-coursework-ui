@@ -81,10 +81,10 @@ const Home = () => {
                 let userRole = response?.data?.resource_access[clientId]['roles'];
                 const connectedUser = {
                     username: formData['email'],
-                    userRole: userRole
+                    userRole: userRole[0]
                 };
                 saveItem('connectedUser', connectedUser);
-                redirectTo(userRole);
+                redirectTo(userRole[0]);
                 refreshP();
                 setIsLoading(false);
             } catch (error) {
