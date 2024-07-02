@@ -1,38 +1,157 @@
-.App {
-  text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container-sidebar {
+    display: flex;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+main {
+    width: 100%;
+    padding: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.sidebar {
+    color: #fff;
+    #width: 200px;
+    #padding-left: 20px;
+    background-image: linear-gradient(30deg, #0048bd, #44a7fd);
+    border-top-right-radius: 80px;
 }
 
-.App-link {
-  color: #61dafb;
+.top_section {
+    display: flex;
+    align-items: center;
+    padding: 20px 15px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+    font-size: 30px;
 }
+
+.bars {
+    display: flex;
+    margin-left: 50px;
+    font-size: 25px;
+}
+
+.link {
+    color: #fff;
+    display: flex;
+    padding: 10px 20px;
+    margin-top: 15px;
+    gap: 15px;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.link:hover, .active {
+    color: #3f5efb;
+    outline: none;
+    position: relative;
+    background: #fff;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.link:hover::after {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    bottom: 100%;
+    right: 0;
+    height: 35px;
+    width: 35px;
+    border-bottom-right-radius: 18px;
+    box-shadow: 0 20px 0 0 #fff;
+}
+
+.link:hover::before {
+    content: "";
+    position: absolute;
+    background-color: transparent;
+    top: 38px;
+    right: 0;
+    height: 35px;
+    width: 35px;
+    border-top-right-radius: 18px;
+    box-shadow: 0 -20px 0 0 #fff;
+}
+
+.icon, .link_text {
+    font-size: 20px;
+}
+
+.country-card {
+    max-height: 200px;
+    min-height: 200px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.loading-d{
+    width: 3rem;
+    height: 3rem;
+}
+
+.loading-circle {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ccc;
+    border-top-color: #333;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.center {
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.center span {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 50px;
+    width: 50px;
+}
+.product-convert{
+    border-radius: 50%;
+    display: inline-block;
+}
+.product-convert span{
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    height: 25px;
+    width: 25px;
+}
+.card-pm{
+    width: 280px;
+}
+.login-form{
+    width: 350px;
+}
+.required:after{
+    padding-left: 5px;
+    padding-top: 2px;
+    content:"*";
+    color:red;
+}
+
+
+
