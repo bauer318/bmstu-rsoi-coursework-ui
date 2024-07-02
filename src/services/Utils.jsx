@@ -42,19 +42,15 @@ export const getUserSortRq = (roleKey, authStatus) => {
 
 export const printError = (error) => {
     if (error.response) {
-        /*console.log('error response data ', error.response.data);
-        console.log('error response status ', error.response.status);
-        console.log('error response headers ', error.response.headers);*/
         if (error?.response?.status === 403) {
             callBackRemoveData();
             window.location = "/";
 
         }
     } else if (error.request) {
-        //console.log('error request ', error.request);
         alert("Something went wrong please try again later");
     } else {
-        //console.log('others error', error.message);
+        console.log('others error', error.message);
     }
 }
 
@@ -120,53 +116,8 @@ const countriesAPI = () => {
     ]
 }
 
-const currenciesAPI = () => {
-    return [
-        {
-            name: 'Angolan kwanza',
-            code: 'AOA',
-            symbol: 'Kz'
-        },
-        {
-            name: 'Congolese franc',
-            code: 'CDF',
-            symbol: 'FC'
-        },
-        {
-            name: 'Euro',
-            code: 'EUR',
-            symbol: '£'
-        },
-        {
-            name: 'Russian ruble',
-            code: 'RUB',
-            symbol: '₽'
-        },
-        {
-            name: 'United States dollar',
-            code: 'USD',
-            symbol: '$'
-        },
-        {
-            name: 'Central African CFA franc',
-            code: 'XAF',
-            symbol: 'F.CFA'
-        },
-        {
-            name: 'West African CFA franc',
-            code: 'XOF',
-            symbol: 'F.CFA'
-        },
-
-    ]
-}
-
 export const getCountryByName = name => {
     return countriesAPI().filter(country => country.name === name)[0];
-}
-
-export const getCurrencyByName = name => {
-    return currenciesAPI().filter(currency => currency.name === name)[0];
 }
 
 export const getToken = () => {
@@ -184,11 +135,7 @@ export const getUserHomePath = userRole => {
         case 'ROLE_ADMIN':
             return '/admin/users';
         case 'ROLE_MODERATOR':
-            return 'moderator/users';
-        case 'ROLE_AGENT':
-            return 'agent/account';
-        case 'ROLE_CLIENT':
-            return 'client/home';
+            return 'user/home';
     }
 }
 const reverseArray = arrayIn => {
@@ -211,19 +158,12 @@ export const formatDate = date => {
     return dateOut;
 }
 
-export const getAgentAccountRq = (account, connectedUser) => {
-    return {
-        currency: {
-            currencyId: account?.currency?.currencyId
-        },
-        accountType: {
-            accountTypeId: account?.accountType?.accountTypeId
-        },
-        country: connectedUser?.country?.countryName
-    }
-}
-export const baseURL = 'http://193.187.174.234:8080/api';
-//export const baseURL = 'http://localhost:8080/api';
+export const baseURL = 'http://localhost:8081/api/v1';
+export const oidcToken = "http://localhost:18080/realms/rsoi2/protocol/openid-connect/token";
+export const clientSecret = 'uDYqtSawcE3ZpuVRVy6TegV2VWfwPWK6';
+export const clientId = 'spring-boot-demo-client';
+export const grantType = 'password';
+export const userInfosEndpoint = 'http://localhost:18080/realms/rsoi2/protocol/openid-connect/userinfo';
 const instance = axios.create({
     baseURL: baseURL,
     headers: {Authorization: getItem('jwtToken')}

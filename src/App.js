@@ -1,9 +1,10 @@
 import './bootstrap.min.css';
 import './App.css';
 import {getItem} from "./services/LocalStorageService";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import {useState} from "react";
+import Home from "./pages/Home";
 
 export var logout = () => {
 };
@@ -27,7 +28,9 @@ const App = () => {
         <div>
             <BrowserRouter>
                 <Sidebar user={longedUser}>
-
+                    <Routes>
+                        <Route path={"/"} element={<Home/>}/>
+                    </Routes>
                 </Sidebar>
             </BrowserRouter>
         </div>

@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
-import {FaCity, FaExchangeAlt, FaGithub, FaHistory, FaUsers} from 'react-icons/fa';
+import {FaExchangeAlt, FaGithub, FaUsers} from 'react-icons/fa';
 import {NavLink} from "react-router-dom";
-import {HiHome, HiUsers} from "react-icons/hi";
+import {HiUsers} from "react-icons/hi";
 import {MdOutlineAccountBalanceWallet, MdOutlinePermIdentity} from "react-icons/md";
 import {RiLuggageDepositLine} from "react-icons/ri";
-import {BiMoneyWithdraw} from "react-icons/bi";
-import {GrCurrency} from "react-icons/gr";
-import {BsFillWalletFill} from "react-icons/bs";
 import LogoutBtn from "./LogoutBtn";
-import {FiSettings} from "react-icons/fi";
 
 
 const Sidebar = ({children, user}) => {
@@ -19,12 +15,8 @@ const Sidebar = ({children, user}) => {
                 return 0;
             case 'ROLE_USER':
                 return 1;
-            case 'ROLE_AGENT':
-                return 2;
-            case 'ROLE_CLIENT':
-                return 3;
             default:
-                return 4;
+                return 2;
         }
     }
     const menuIndex = getMenuIndexByRole(user?.userRole?.userRole);
@@ -97,7 +89,7 @@ const Sidebar = ({children, user}) => {
                     </div>
                 }
                 <hr className={"mt-5"}/>
-                <NavLink to={"https://forms.yandex.ru/u/65a25274d0468848f12a169b/"}
+                <NavLink to={"https://github.com/bauer318/rsoi-coursework-ui.git"}
                          className="link nav-item fs-1" activeclassname="active">
                     <div className="icon"><FaGithub/></div>
                     <div className="link_text ms-2 d-none d-sm-inline">{"Project's repository"}</div>
