@@ -1,9 +1,14 @@
 import React from 'react';
+import BlogCard from "../components/BlogCard";
 
 const UserHome = () => {
     return (
-        <div className={"container"}>
-            Hello User
+        <div className="row ">
+            <h4 className={"text-center"}>Blogs</h4>
+            <BlogCard/>
+            <BlogCard/>
+            <BlogCard/>
+            <BlogCard/>
         </div>
     )
 };

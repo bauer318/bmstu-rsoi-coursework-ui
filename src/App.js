@@ -7,6 +7,9 @@ import {useState} from "react";
 import Home from "./pages/Home";
 import AdminHome from "./pages/AdminHome";
 import UserHome from "./pages/UserHome";
+import UserBlog from "./pages/UserBlog";
+import UserProfile from "./pages/UserProfile";
+import AdminStat from "./pages/AdminStat";
 
 export var logout = () => {
 };
@@ -33,7 +36,10 @@ const App = () => {
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"/admin/users"} element={<AdminHome/>}/>
+                        <Route path={"/admin/stats"} element={<AdminStat/>}/>
                         <Route path={"/user/home"} element={<UserHome/>}/>
+                        <Route path={"/user/blogs"} element={<UserBlog/>}/>
+                        <Route path={"/user/profile"} element={<UserProfile/>}/>
                     </Routes>
                 </Sidebar>
             </BrowserRouter>
