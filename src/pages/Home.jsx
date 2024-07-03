@@ -4,7 +4,7 @@ import {Navigate, useNavigate} from "react-router-dom";
 import {getItem, removeItem, saveItem} from "../services/LocalStorageService";
 import {refreshP} from "../App";
 import axios from "axios";
-import {clientId, clientSecret, grantType, oidcToken, userInfosEndpoint} from "../services/Utils";
+import {clientId, grantType, oidcToken, userInfosEndpoint} from "../services/Utils";
 
 
 const Home = () => {
@@ -45,7 +45,6 @@ const Home = () => {
             params.append('password', formData["password"]);
             params.append('grant_type', grantType);
             params.append('client_id', clientId);
-            params.append('client_secret', clientSecret);
             params.append('scope', 'openid');
             try {
                 const response = await axios.post(oidcToken, params, {

@@ -92,7 +92,6 @@ export const fetchStudent = async (author) => {
 }
 export const baseURL = 'http://localhost:8081/api/v1';
 export const oidcToken = "http://localhost:18080/realms/rsoi2/protocol/openid-connect/token";
-export const clientSecret = 'uDYqtSawcE3ZpuVRVy6TegV2VWfwPWK6';
 export const clientId = 'spring-boot-demo-client';
 export const grantType = 'password';
 export const userInfosEndpoint = 'http://localhost:18080/realms/rsoi2/protocol/openid-connect/userinfo';
