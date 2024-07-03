@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import BlogCardShort from "./BlogCardShort";
-import {Button} from "react-bootstrap";
 
 const UserBlogCard = () => {
     const [open, setOpen] = useState(false);

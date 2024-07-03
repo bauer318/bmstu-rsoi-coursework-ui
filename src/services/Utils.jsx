@@ -1,6 +1,7 @@
-import {getItem, removeItem, saveItem} from "./LocalStorageService";
+import {getItem, removeItem} from "./LocalStorageService";
 import axios from "axios";
 import {logout, refreshP} from "../App";
+import {reject} from "lodash";
 
 export const getUserSortRq = (roleKey, authStatus) => {
     switch (roleKey) {
@@ -92,6 +93,19 @@ export const formatDate = date => {
         }
     });
     return dateOut;
+}
+
+export const handlesError = (response) => {
+    if (response?.status === 401 || response?.status === 403) {
+        callBackRemoveData();
+        window.location = "/";
+    } else if (response?.status === 500) {
+        reject(response);
+    }
+}
+
+export const creatImageBlob = (element) => {
+    return new Blob([element], {type: 'image/png'});
 }
 
 export const baseURL = 'http://localhost:8081/api/v1';

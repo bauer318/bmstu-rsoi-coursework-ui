@@ -39,10 +39,7 @@ const Home = () => {
         const handleSubmit = async event => {
             event.preventDefault();
             setIsLoading(true);
-            const longedUser = {
-                email: formData["email"],
-                password: formData["password"]
-            };
+
             const params = new URLSearchParams();
             params.append('username', formData["email"]);
             params.append('password', formData["password"]);
