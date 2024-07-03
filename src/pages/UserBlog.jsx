@@ -17,7 +17,6 @@ const UserBlog = () => {
         setIsLoad(true);
         fetchBlogs().then(data => {
             setBlogs(data);
-            console.log(data);
             setIsLoad(false);
         }).catch(error => {
             handlesError(error?.response);

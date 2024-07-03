@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ProfileCard from "../components/ProfileCard";
 import {Button, Col} from "react-bootstrap";
 import {IoMdPersonAdd} from "react-icons/io";
 import {FaUserEdit} from "react-icons/fa";
 import ProfileInfoModal from "../modals/ProfileInfoModal";
+import axios from "axios";
+import {baseURL, fetchStudent, handlesError} from "../services/Utils";
+import {getItem} from "../services/LocalStorageService";
 
 const UserProfile = () => {
     const [showModal, setShowModal] = useState(false);
@@ -11,14 +14,53 @@ const UserProfile = () => {
     const handleCloseModal = () => setShowModal(false);
 
     const handleSaveProfile = (profileData) => {
-        setProfile({...profile, ...profileData});
+        const data = {
+            firstname: profileData?.firstName,
+            lastname: profileData?.lastName,
+            country: profileData?.country,
+            university: profileData?.university
+        }
+        addStudentInfo(data).then(response => {
+            setProfile({...profile, ...profileData});
+        }).catch(error => {
+            handlesError(error?.response)
+        })
     };
+    const [username, setUsername] = useState(getItem('connectedUser')?.username);
+    useEffect(() => {
+        fetchStudent(username).then(
+            response => {
+                setProfile({
+                    username: username,
+                    firstName: response?.firstname ? response.firstname : 'ADD FIRSTNAME',
+                    lastName: response?.lastname ? response.lastname : 'ADD LASTNAME',
+                    country: response?.country ? response.country : 'ADD COUNTRY',
+                    university: response?.university ? response.university : 'ADD UNIVERSITY'
+                });
+            }
+        ).catch(error => {
+            handlesError(error.response);
+        })
+    }, []);
+
+    const addStudentInfo = async (data) => {
+        try {
+            await axios.post(baseURL + '/students', data, {
+                headers: {
+                    'Authorization': `Bearer ${getItem('access_token')}`
+                }
+            });
+        } catch (error) {
+            handlesError(error?.response);
+        }
+    }
+
     const [profile, setProfile] = useState({
-        username: 'johndoe123',
-        firstName: 'John',
-        lastName: 'Doe',
-        country: 'United States',
-        university: 'Example University'
+        username: username,
+        firstName: 'ADD FIRSTNAME',
+        lastName: 'ADD LASTNAME',
+        country: 'ADD COUNTRY',
+        university: 'ADD UNIVERSITY'
     });
     return (
         <div className={"row justify-content-center mt-5"}>
@@ -40,15 +82,7 @@ const UserProfile = () => {
                             style={{marginTop: '5px'}}
                             onClick={handleShowModal}
                         >
-                            <IoMdPersonAdd/>
-                        </Button>
-                    </div>
-                    <div className={"col"}>
-                        <Button
-                            variant="secondary"
-                            style={{marginTop: '5px'}}
-                        >
-                            <FaUserEdit/>
+                            <span>Add infos </span> <IoMdPersonAdd size={20}/>
                         </Button>
                     </div>
                     <ProfileInfoModal

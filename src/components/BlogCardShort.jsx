@@ -2,15 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, Collapse} from "react-bootstrap";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import axios from "axios";
-import {baseURL, creatImageBlob, handlesError, timeAgo} from "../services/Utils";
+import {baseURL, creatImageBlob, fetchStudent, handlesError, timeAgo} from "../services/Utils";
 import {getItem} from "../services/LocalStorageService";
 
-const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, isUserBlog, blogId,refresh}) => {
+const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, isUserBlog, blogId, refresh}) => {
     const [showModal, setShowModal] = useState(false);
     const [student, setStudent] = useState();
     const [image, setImage] = useState('');
     useEffect(() => {
-        fetchStudent().then(response => {
+        fetchStudent(author).then(response => {
             setStudent(response);
         }).catch(error => {
             handlesError(error?.response);
@@ -30,18 +30,7 @@ const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, i
         }
 
     }, []);
-    const fetchStudent = async () => {
-        try {
-            const response = await axios.get(baseURL + `/students/${author}`, {
-                headers: {
-                    'Authorization': `Bearer ${getItem('access_token')}`
-                }
-            });
-            return response?.data;
-        } catch (error) {
-            handlesError(error?.response);
-        }
-    }
+
 
     const fetchBlogImage = async (id) => {
         try {

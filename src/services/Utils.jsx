@@ -1,6 +1,7 @@
 import {getItem, removeItem} from "./LocalStorageService";
 import {logout, refreshP} from "../App";
 import {reject} from "lodash";
+import axios from "axios";
 
 export const printError = (error) => {
     if (error.response) {
@@ -75,6 +76,19 @@ export const getFormData = (blogImage, blogText) => {
     formData.append('image', blogImage);
     formData.append('blogText', blogText);
     return formData;
+}
+
+export const fetchStudent = async (author) => {
+    try {
+        const response = await axios.get(baseURL + `/students/${author}`, {
+            headers: {
+                'Authorization': `Bearer ${getItem('access_token')}`
+            }
+        });
+        return response?.data;
+    } catch (error) {
+        handlesError(error?.response);
+    }
 }
 export const baseURL = 'http://localhost:8081/api/v1';
 export const oidcToken = "http://localhost:18080/realms/rsoi2/protocol/openid-connect/token";
