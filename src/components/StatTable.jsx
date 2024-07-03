@@ -1,14 +1,10 @@
 import React, {useState} from 'react';
 import {Container, Table, Form, Row, Col} from 'react-bootstrap';
+import {timeAgo} from "../services/Utils";
 
-const StatTable = () => {
+const StatTable = ({data}) => {
     const [filterAction, setFilterAction] = useState('');
     const [filterStatus, setFilterStatus] = useState('');
-    const [data, setData] = useState([
-        {action: 'Login', status: 'Success', datetime: '2024-07-01 10:00:00', errorMessage: ''},
-        {action: 'Logout', status: 'Success', datetime: '2024-07-01 11:00:00', errorMessage: ''},
-        {action: 'Login', status: 'Failure', datetime: '2024-07-01 12:00:00', errorMessage: 'Invalid credentials'},
-    ]);
 
     const handleFilterActionChange = (e) => setFilterAction(e.target.value);
     const handleFilterStatusChange = (e) => setFilterStatus(e.target.value);
@@ -61,7 +57,7 @@ const StatTable = () => {
                         <tr key={index}>
                             <td>{item.action}</td>
                             <td>{item.status}</td>
-                            <td>{item.datetime}</td>
+                            <td>{timeAgo(item.createdAt)}</td>
                             <td>{item.errorMessage}</td>
                         </tr>
                     ))

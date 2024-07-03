@@ -1,7 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import UserList from "../components/UserList";
+import axios from "axios";
+import {getItem} from "../services/LocalStorageService";
+import {baseURL, handlesError} from "../services/Utils";
 
 const AdminPage = () => {
+    useEffect(() => {
+        fetchStudents().then(students => {
+            setUsers(students);
+        }).catch(error => {
+            handlesError(error?.response);
+        })
+    }, []);
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get(baseURL + `/students/all`, {
+                headers: {
+                    'Authorization': `Bearer ${getItem('access_token')}`
+                }
+            });
+            return response?.data;
+        } catch (error) {
+            handlesError(error?.response);
+        }
+    }
     const [users, setUsers] = useState([
         {
             username: 'johndoe123',

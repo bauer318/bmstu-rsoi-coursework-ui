@@ -10,7 +10,6 @@ const ProfileInfoModal = ({ show, handleClose, handleSave }) => {
     const handleSaveProfile = () => {
         const profileData = { firstName, lastName, country, university };
         handleSave(profileData);
-        // Clear form fields
         setFirstName('');
         setLastName('');
         setCountry('');
