@@ -2,10 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Button, Card, Collapse} from "react-bootstrap";
 import DeleteConfirmationModal from "../modals/DeleteConfirmationModal";
 import axios from "axios";
-import {baseURL, creatImageBlob, handlesError} from "../services/Utils";
+import {baseURL, creatImageBlob, handlesError, timeAgo} from "../services/Utils";
 import {getItem} from "../services/LocalStorageService";
 
-const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, isUserBlog, blogId}) => {
+const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, isUserBlog, blogId,refresh}) => {
     const [showModal, setShowModal] = useState(false);
     const [student, setStudent] = useState();
     const [image, setImage] = useState('');
@@ -64,10 +64,25 @@ const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, i
     const handleShowModal = () => setShowModal(true);
 
     const handleDeleteItem = () => {
+        deleteBlog(blogId).then(response => {
+            handleCloseModal();
+            refresh();
+        }).catch(error => {
+            handleCloseModal();
+            handlesError(error?.response);
+        })
+    };
 
-        console.log("Deleting item...");
-
-        handleCloseModal();
+    const deleteBlog = async (blogId) => {
+        try {
+            await axios.delete(`${baseURL}/blogs/${blogId}`, {
+                headers: {
+                    Authorization: `Bearer ${getItem('access_token')}`, // Assuming you have a function to get access token
+                },
+            });
+        } catch (error) {
+            console.error('Error deleting resource:', error);
+        }
     };
 
     return (
@@ -84,17 +99,19 @@ const BlogCardShort = ({contents, comments, setOpen, open, author, timePosted, i
                     {contents}
                 </p>
                 <Card.Text className="text-muted">
-                    Posted by <span className={'text-primary'}>@{author}</span><small>{`at ${timePosted}`}</small>
+                    Posted by <span
+                    className={'text-primary'}>@{author}</span><small>{`,  ${timeAgo(timePosted)}`}</small>
                 </Card.Text>
                 <br/>
-                <Button
+                {comments?.length !== 0 && <Button
                     onClick={() => setOpen(!open)}
                     aria-controls="example-collapse-text"
                     aria-expanded={open}
                     variant="primary"
                 >
                     {open ? 'Hide Comments' : 'Show Comments'}
-                </Button>
+                </Button>}
+
                 <Collapse in={open}>
                     <div id="example-collapse-text">
                         {comments.map((comment, index) => (

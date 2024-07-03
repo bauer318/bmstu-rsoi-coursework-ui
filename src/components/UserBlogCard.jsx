@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
 import BlogCardShort from "./BlogCardShort";
 
-const UserBlogCard = () => {
+const UserBlogCard = ({comments, timePosted, author, blogText, blogId,refresh}) => {
     const [open, setOpen] = useState(false);
-    const [comments, setComments] = useState(['First comments for this user', 'Second comment long but not long and so long long long',
-        'Second comment long but not long and so long long long']);
-    const author = 'Bauer Jack';
-    const timePosted = '23h38';
 
     return (
-        <BlogCardShort comments={comments} open={open} setOpen={setOpen} timePosted={timePosted} author={author}
-                       isUserBlog={true}/>
+        <BlogCardShort contents={blogText} blogId={blogId} comments={comments} open={open} setOpen={setOpen}
+                       timePosted={timePosted} author={author}
+                       isUserBlog={true} refresh={refresh}/>
     );
 };
 

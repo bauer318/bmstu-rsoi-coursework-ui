@@ -107,7 +107,41 @@ export const handlesError = (response) => {
 export const creatImageBlob = (element) => {
     return new Blob([element], {type: 'image/png'});
 }
+export const formatDateTime = (datetimeStr) => {
+    const date = new Date(datetimeStr); // Create a Date object from the ISO 8601 datetime string
+    const year = date.getFullYear();
+    const month = padNumber(date.getMonth() + 1); // getMonth() returns 0-indexed, so we add 1
+    const day = padNumber(date.getDate());
+    const hours = padNumber(date.getHours());
+    const minutes = padNumber(date.getMinutes());
+    const seconds = padNumber(date.getSeconds());
 
+    return `${hours}:${minutes}:${seconds} ${year}-${month}-${day}`;
+}
+
+export const timeAgo = (datetimeStr) => {
+    const date = new Date(datetimeStr);
+    const now = new Date();
+
+    const timeDifference = now.getTime() - date.getTime();
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) {
+        return days === 1 ? '1 day ago' : `${days} days ago`;
+    } else if (hours > 0) {
+        return hours === 1 ? '1 hour ago' : `${hours} hours ago`;
+    } else if (minutes > 0) {
+        return minutes === 1 ? '1 minute ago' : `${minutes} minutes ago`;
+    } else {
+        return seconds <= 10 ? 'just now' : `${seconds} seconds ago`;
+    }
+}
+const padNumber = (num) => {
+    return num.toString().padStart(2, '0'); // Pad single digit numbers with leading zero
+}
 export const baseURL = 'http://localhost:8081/api/v1';
 export const oidcToken = "http://localhost:18080/realms/rsoi2/protocol/openid-connect/token";
 export const clientSecret = 'uDYqtSawcE3ZpuVRVy6TegV2VWfwPWK6';
