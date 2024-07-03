@@ -38,7 +38,7 @@ const BlogCard = ({blogText, author, timePosted, blogComments, blogId}) => {
                     }
                 });
             } catch (error) {
-                console.error('Error fetching user info:', error);
+                handlesError(error?.response);
             }
         }
 

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import UserBlogCard from "../components/UserBlogCard";
 import {Button} from "react-bootstrap";
 import AddBlogModal from "../modals/AddBlogModal";
-import {baseURL, handlesError} from "../services/Utils";
+import {baseURL, getFormData, handlesError} from "../services/Utils";
 import axios from "axios";
 import {getItem} from "../services/LocalStorageService";
 
@@ -46,9 +46,27 @@ const UserBlog = () => {
     const handleShowModal = () => setShowModal(true);
 
     const handleSaveBlog = (image, content) => {
+        const formData = getFormData(image, content);
+        addBlog(formData).then(response => {
+            alert('blog added');
+            refresh();
+        }).catch(error => {
+            handlesError(error?.response);
+        })
         console.log("Image:", image);
         console.log("Content:", content);
     };
+    const addBlog = async (data) => {
+        try {
+            await axios.post(baseURL + '/blogs', data, {
+                headers: {
+                    'Authorization': `Bearer ${getItem('access_token')}`
+                }
+            });
+        } catch (error) {
+            handlesError(error?.response);
+        }
+    }
 
     return (
         <div className={"container"}>
